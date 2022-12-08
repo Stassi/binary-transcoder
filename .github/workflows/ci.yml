@@ -2,9 +2,9 @@ name: Continuous integration - Node.js + npm
 
 on:
   push:
-    branches: [ main, develop, feature/** ]
+    branches: [main, develop, feature/**]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   build:
@@ -32,5 +32,5 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [ 14.21.x, 16.18.x, 18.12.x, 19.2.x ]
-        os: [ macos-latest, ubuntu-latest, windows-latest ]
+        node-version: [14.21.x, 16.18.x, 18.12.x, 19.2.x]
+        os: [macos-latest, ubuntu-latest, windows-latest]
