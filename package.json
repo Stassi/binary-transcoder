@@ -1,0 +1,108 @@
+{
+  "name": "@stassi/binary-transcoder",
+  "version": "0.0.0",
+  "description": "Convert binary data between common formats and encodings.",
+  "keywords": [
+    "8-bit",
+    "binary",
+    "decoder",
+    "decoding",
+    "encoder",
+    "encoding",
+    "hex",
+    "hexadecimal",
+    "ISO/IEC 8859-1",
+    "Latin-1",
+    "latin1",
+    "octet",
+    "transcoder",
+    "transcoding",
+    "uint8"
+  ],
+  "homepage": "https://github.com/Stassi/binary-transcoder#readme",
+  "license": "MIT",
+  "author": "Andreas Stassivik <andreas@stassi.net>",
+  "sideEffects": false,
+  "files": [
+    "dist"
+  ],
+  "main": "dist/index.cjs",
+  "publishConfig": {
+    "access": "public"
+  },
+  "type": "module",
+  "types": "dist/index.d.mts",
+  "exports": {
+    "import": "./dist/index.mjs",
+    "require": "./dist/index.cjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Stassi/binary-transcoder.git"
+  },
+  "scripts": {
+    "build": "rollup -c --bundleConfigAsCjs",
+    "prepublishOnly": "npm run build",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "@jest/globals": "^29.3.1",
+    "@rollup/plugin-terser": "^0.2.0",
+    "@rollup/plugin-typescript": "^10.0.1",
+    "@typescript-eslint/eslint-plugin": "^5.45.1",
+    "@typescript-eslint/parser": "^5.45.1",
+    "eslint": "^8.29.0",
+    "eslint-config-prettier": "^8.5.0",
+    "jest": "^29.3.1",
+    "prettier": "2.8.1",
+    "rollup": "^3.6.0",
+    "ts-jest": "^29.0.3",
+    "typescript": "^4.9.4"
+  },
+  "engines": {
+    "node": ">=14.21.1 || >=16.18.1 || >=18.12.1 || >=19.2.0",
+    "npm": ">=6.14.17 || >=7.24.2 || >=9.2.0"
+  },
+  "os": [
+    "darwin",
+    "linux",
+    "win32"
+  ],
+  "cpu": [
+    "x64"
+  ],
+  "eslintConfig": {
+    "extends": [
+      "eslint:recommended",
+      "plugin:@typescript-eslint/recommended",
+      "prettier"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "plugins": [
+      "@typescript-eslint"
+    ],
+    "root": true
+  },
+  "jest": {
+    "extensionsToTreatAsEsm": [
+      ".ts"
+    ],
+    "moduleNameMapper": {
+      "^(\\.{1,2}/.*)\\.js$": "$1"
+    },
+    "preset": "ts-jest/presets/default-esm",
+    "transform": {
+      "^.+\\\\.m?[tj]sx?$": [
+        "ts-jest",
+        {
+          "useESM": true
+        }
+      ]
+    }
+  },
+  "prettier": {
+    "endOfLine": "auto",
+    "semi": false,
+    "singleQuote": true
+  }
+}
