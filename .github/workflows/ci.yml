@@ -32,5 +32,5 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [14.21.x, 16.18.x, 18.12.x, 19.2.x]
+        node-version: [16.18.x, 18.12.x, 19.2.x]
         os: [macos-latest, ubuntu-latest, windows-latest]
