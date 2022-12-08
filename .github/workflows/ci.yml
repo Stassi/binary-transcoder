@@ -1,0 +1,36 @@
+name: Continuous integration - Node.js + npm
+
+on:
+  push:
+    branches: [ main, develop, feature/** ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    name: Test (and build)
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout git repository
+        uses: actions/checkout@v3
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - name: Clean install dependencies
+        run: npm ci
+
+      - name: Run test suite
+        run: npm test
+
+      - name: Build (if present)
+        run: npm run build --if-present
+
+    strategy:
+      matrix:
+        node-version: [ 14.21.x, 16.18.x, 18.12.x, 19.2.x ]
+        os: [ macos-latest, ubuntu-latest, windows-latest ]
