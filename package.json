@@ -43,7 +43,8 @@
   "scripts": {
     "build": "rollup -c --bundleConfigAsCjs",
     "prepublishOnly": "npm run build",
-    "test": "jest"
+    "test": "npm run test:jest",
+    "test:jest": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
   "devDependencies": {
     "@jest/globals": "^29.3.1",
