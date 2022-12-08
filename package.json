@@ -41,7 +41,6 @@
     "url": "git+https://github.com/Stassi/binary-transcoder.git"
   },
   "scripts": {
-    "build": "rollup -c --bundleConfigAsCjs",
     "format:check": "prettier --check .",
     "prepublishOnly": "npm run build",
     "test": "npm run format:check && npm run test:jest",
