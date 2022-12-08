@@ -41,10 +41,10 @@
     "url": "git+https://github.com/Stassi/binary-transcoder.git"
   },
   "scripts": {
-    "format:check": "prettier --check .",
     "prepublishOnly": "npm run build",
-    "test": "npm run format:check && npm run test:jest",
-    "test:jest": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
+    "test": "npm run test:style && npm run test:jest",
+    "test:jest": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "test:style": "prettier --check ."
   },
   "devDependencies": {
     "@jest/globals": "^29.3.1",
