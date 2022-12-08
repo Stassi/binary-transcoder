@@ -42,8 +42,9 @@
   },
   "scripts": {
     "build": "rollup -c --bundleConfigAsCjs",
+    "format:check": "prettier --check .",
     "prepublishOnly": "npm run build",
-    "test": "npm run test:jest",
+    "test": "npm run format:check && npm run test:jest",
     "test:jest": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
   "devDependencies": {
