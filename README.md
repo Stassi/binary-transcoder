@@ -32,8 +32,16 @@ npm i @stassi/binary-transcoder
 
 ### Node.js
 
+#### ES module
+
 ```javascript
 import { fromHex, fromLatin1, transcode } from '@stassi/binary-transcoder'
+```
+
+#### CommonJS
+
+```javascript
+const { fromHex, fromLatin1, transcode } = require('@stassi/binary-transcoder')
 ```
 
 ## Examples
