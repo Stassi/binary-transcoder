@@ -1,6 +1,24 @@
 # binary-transcoder
 
-Convert binary data between common formats and encodings.
+Convert binary data between any two formats and encodings listed here.
+
+### `ArrayLike`
+
+_Further information: [`Uint8Array` (MDN)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array)_
+
+- `number[]`
+- `Uint8Array`
+
+### `string`
+
+_Further information: [`node:buffer` character encodings (Node.js)](https://nodejs.org/docs/latest-v19.x/api/buffer.html#buffers-and-character-encodings)_
+
+- `'hex'`
+- `'latin1'`
+
+## Demo
+
+_Instant demonstration: [`@stassi/binary-transcoder` (RunKit + npm)](https://npm.runkit.com/%40stassi%2Fbinary-transcoder)_
 
 ## Installation
 
@@ -123,20 +141,6 @@ transcode({
 transcode(Uint8Array.from([75, 101, 121])).toLatin1()
 // 'Key'
 ```
-
-## Supported formats & encodings
-
-Convert between any two formats/encodings listed here.
-
-### `ArrayLike`
-
-- `number[]`
-- `Uint8Array`
-
-### `string`
-
-- `'hex'`
-- `'latin1'`
 
 ## Interface & types
 
