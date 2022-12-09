@@ -1,6 +1,24 @@
 # binary-transcoder
 
-Convert binary data between common formats and encodings.
+Convert binary data between any two formats and encodings listed here.
+
+### `ArrayLike`
+
+_Further information: [`Uint8Array` (MDN)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array)_
+
+- `number[]`
+- `Uint8Array`
+
+### `string`
+
+_Further information: [`node:buffer` character encodings (Node.js)](https://nodejs.org/docs/latest-v19.x/api/buffer.html#buffers-and-character-encodings)_
+
+- `'hex'`
+- `'latin1'`
+
+## Demo
+
+_Instant demonstration: [`@stassi/binary-transcoder` (RunKit + npm)](https://npm.runkit.com/%40stassi%2Fbinary-transcoder)_
 
 ## Installation
 
@@ -14,8 +32,26 @@ npm i @stassi/binary-transcoder
 
 ### Node.js
 
+#### ES module
+
 ```javascript
 import { fromHex, fromLatin1, transcode } from '@stassi/binary-transcoder'
+```
+
+#### CommonJS
+
+```javascript
+const { fromHex, fromLatin1, transcode } = require('@stassi/binary-transcoder')
+```
+
+### Web
+
+```javascript
+import {
+  fromHex,
+  fromLatin1,
+  transcode,
+} from 'https://cdn.skypack.dev/@stassi/binary-transcoder'
 ```
 
 ## Examples
@@ -106,7 +142,7 @@ transcode([0o113, 0o145, 0o171]).toLatin1()
 
 ```javascript
 fromLatin1('Key').toUInt8Array()
-// Uint8Array: [75, 101, 121]
+// Uint8Array <4B, 65, 79>
 ```
 
 ```javascript
@@ -114,7 +150,7 @@ transcode({
   encoding: 'latin1',
   text: 'Key',
 }).toUInt8Array()
-// Uint8Array: [75, 101, 121]
+// Uint8Array <4B, 65, 79>
 ```
 
 ### `Uint8Array` decoding
@@ -124,21 +160,9 @@ transcode(Uint8Array.from([75, 101, 121])).toLatin1()
 // 'Key'
 ```
 
-## Supported formats & encodings
-
-Convert between any two formats/encodings listed here.
-
-### `ArrayLike`
-
-- `number[]`
-- `Uint8Array`
-
-### `string`
-
-- `'hex'`
-- `'latin1'`
-
 ## Interface & types
+
+Function signatures provided here for reference. Built-in types are automatically usable in JavaScript. TypeScript is optional and not required.
 
 ### `transcode`
 
