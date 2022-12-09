@@ -132,7 +132,7 @@ transcode([0o113, 0o145, 0o171]).toLatin1()
 
 ```javascript
 fromLatin1('Key').toUInt8Array()
-// Uint8Array: [75, 101, 121]
+// Uint8Array <4B, 65, 79>
 ```
 
 ```javascript
@@ -140,7 +140,7 @@ transcode({
   encoding: 'latin1',
   text: 'Key',
 }).toUInt8Array()
-// Uint8Array: [75, 101, 121]
+// Uint8Array <4B, 65, 79>
 ```
 
 ### `Uint8Array` decoding
