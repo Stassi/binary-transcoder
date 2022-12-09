@@ -45,8 +45,13 @@ const { fromHex, fromLatin1, transcode } = require('@stassi/binary-transcoder')
 ```
 
 ### Web
+
 ```javascript
-import { fromHex, fromLatin1, transcode } from 'https://cdn.skypack.dev/@stassi/binary-transcoder'
+import {
+  fromHex,
+  fromLatin1,
+  transcode,
+} from 'https://cdn.skypack.dev/@stassi/binary-transcoder'
 ```
 
 ## Examples
