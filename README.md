@@ -152,6 +152,8 @@ transcode(Uint8Array.from([75, 101, 121])).toLatin1()
 
 ## Interface & types
 
+Function signatures provided here for reference. Built-in types are automatically usable in JavaScript. TypeScript is optional and not required.
+
 ### `transcode`
 
 ```typescript
