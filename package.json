@@ -24,7 +24,8 @@
   "author": "Andreas Stassivik <andreas@stassi.net>",
   "sideEffects": false,
   "files": [
-    "dist"
+    "dist",
+    "!dist/__tests__/**"
   ],
   "main": "dist/index.cjs",
   "publishConfig": {
