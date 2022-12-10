@@ -1,5 +1,13 @@
 # binary-transcoder
 
+![npm (scoped)](https://img.shields.io/npm/v/@stassi/binary-transcoder)
+![NPM](https://img.shields.io/npm/l/@stassi/binary-transcoder)
+![npm type definitions](https://img.shields.io/npm/types/@stassi/binary-transcoder)
+![node-current (scoped)](https://img.shields.io/node/v/@stassi/binary-transcoder)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/stassi/binary-transcoder)
+![npm bundle size min (scoped)](https://img.shields.io/bundlephobia/min/@stassi/binary-transcoder)
+![npm bundle size minzip (scoped)](https://img.shields.io/bundlephobia/minzip/@stassi/binary-transcoder)
+
 Convert binary data between any two formats and encodings listed here.
 
 ### `ArrayLike`
