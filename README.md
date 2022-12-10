@@ -7,6 +7,7 @@
 ![code size](https://img.shields.io/github/languages/code-size/stassi/binary-transcoder)
 ![minified size](https://img.shields.io/bundlephobia/min/@stassi/binary-transcoder)
 ![minzipped size](https://img.shields.io/bundlephobia/minzip/@stassi/binary-transcoder)
+[![Continuous integration](https://github.com/Stassi/binary-transcoder/actions/workflows/ci.yml/badge.svg)](https://github.com/Stassi/binary-transcoder/actions/workflows/ci.yml)
 
 Convert binary data between any two formats and encodings listed here.
 
