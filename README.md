@@ -1,4 +1,12 @@
-# binary-transcoder
+# `@stassi/binary-transcoder`
+
+[![version](https://img.shields.io/npm/v/@stassi/binary-transcoder)](https://www.npmjs.com/package/@stassi/binary-transcoder)
+[![license](https://img.shields.io/npm/l/@stassi/binary-transcoder)](LICENSE)
+![types](https://img.shields.io/npm/types/@stassi/binary-transcoder)
+[![engines](https://img.shields.io/node/v/@stassi/binary-transcoder)](package.json)
+![code size](https://img.shields.io/github/languages/code-size/stassi/binary-transcoder)
+![minified size](https://img.shields.io/bundlephobia/min/@stassi/binary-transcoder)
+![minzipped size](https://img.shields.io/bundlephobia/minzip/@stassi/binary-transcoder)
 
 Convert binary data between any two formats and encodings listed here.
 
