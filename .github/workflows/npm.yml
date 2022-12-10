@@ -1,4 +1,4 @@
-name: Publish Node.js package to npm
+name: npm publish
 
 on:
   pull_request:
