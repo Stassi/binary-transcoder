@@ -1,4 +1,4 @@
-# binary-transcoder
+# @stassi/binary-transcoder
 
 ![npm (scoped)](https://img.shields.io/npm/v/@stassi/binary-transcoder)
 ![NPM](https://img.shields.io/npm/l/@stassi/binary-transcoder)
