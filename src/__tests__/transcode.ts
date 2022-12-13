@@ -1,6 +1,6 @@
 import type { BinaryStringEncoding, BinaryTranscoder } from '../transcode.js'
 import { describe, expect, it } from '@jest/globals'
-import { octetPermutation } from '../octetPermutation.js'
+import { permutation as octetPermutation } from '../octet/permutation.js'
 import transcode, { fromHex, fromLatin1 } from '../transcode.js'
 
 describe('binary transcoder', () => {
