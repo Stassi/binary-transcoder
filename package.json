@@ -25,7 +25,7 @@
   "sideEffects": false,
   "files": [
     "dist",
-    "!dist/__tests__/**"
+    "!dist/**/__tests__/**"
   ],
   "main": "dist/index.cjs",
   "publishConfig": {
