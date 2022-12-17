@@ -18,6 +18,12 @@ _Further information: [`Uint8Array` (MDN)](https://developer.mozilla.org/en-US/d
 - `number[]`
 - `Uint8Array`
 
+### `number`
+
+_Further information: [`Number` (MDN)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)_
+
+- `number`
+
 ### `string`
 
 _Further information: [`node:buffer` character encodings (Node.js)](https://nodejs.org/docs/latest-v19.x/api/buffer.html#buffers-and-character-encodings)_
@@ -93,6 +99,20 @@ transcode({
   text: '4b6579',
 }).toLatin1()
 // 'Key'
+```
+
+### `number` encoding
+
+```javascript
+transcode([75, 101, 121]).toNumber()
+// 4941177
+```
+
+### `number` decoding
+
+```javascript
+transcode(4941177).toArray()
+// [75, 101, 121]
 ```
 
 ### `number[]` encoding
