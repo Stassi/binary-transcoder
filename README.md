@@ -104,15 +104,15 @@ transcode({
 ### `number` encoding
 
 ```javascript
-transcode([75, 101, 121]).toNumber()
+transcode([0x4b, 0x65, 0x79]).toNumber()
 // 4941177
 ```
 
 ### `number` decoding
 
 ```javascript
-transcode(4941177).toArray()
-// [75, 101, 121]
+transcode(4941177).toUInt8Array()
+// Uint8Array <4B, 65, 79>
 ```
 
 ### `number[]` encoding
