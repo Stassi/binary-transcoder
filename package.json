@@ -44,8 +44,9 @@
   "scripts": {
     "build": "rollup -c --bundleConfigAsCjs",
     "prepublishOnly": "npm run build",
-    "test": "npm run test:style && npm run test:jest",
+    "test": "npm run test:package && npm run test:style && npm run test:jest",
     "test:jest": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "test:package": "package-check",
     "test:style": "prettier --check ."
   },
   "devDependencies": {
@@ -53,6 +54,7 @@
     "@rollup/plugin-alias": "^4.0.2",
     "@rollup/plugin-terser": "^0.2.0",
     "@rollup/plugin-typescript": "^10.0.1",
+    "@skypack/package-check": "^0.2.2",
     "@typescript-eslint/eslint-plugin": "^5.46.1",
     "@typescript-eslint/parser": "^5.46.1",
     "eslint": "^8.30.0",
