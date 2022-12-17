@@ -197,11 +197,16 @@ Function signatures provided here for reference. Built-in types are automaticall
 
 ```typescript
 type Transcode = (
-  param: number[] | Uint8Array | { encoding: 'hex' | 'latin1'; text: string }
+  param:
+    | number
+    | number[]
+    | Uint8Array
+    | { encoding: 'hex' | 'latin1'; text: string }
 ) => {
   toArray(): number[]
   toHex(): string
   toLatin1(): string
+  toNumber(): number
   toUInt8Array(): Uint8Array
 }
 ```
@@ -213,6 +218,7 @@ type FromString = (text: string) => {
   toArray(): number[]
   toHex(): string
   toLatin1(): string
+  toNumber(): number
   toUInt8Array(): Uint8Array
 }
 ```
