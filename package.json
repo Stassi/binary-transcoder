@@ -1,6 +1,6 @@
 {
   "name": "@stassi/binary-transcoder",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Convert binary data between common formats and encodings.",
   "keywords": [
     "8-bit",

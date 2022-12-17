@@ -5,7 +5,7 @@ import toBinary from './octet/toBinary.js'
 import toDecimal from './octet/toDecimal.js'
 
 export function decode(encoded: Uint8Array): number {
-  return Buffer.from(encoded).readUintBE(0, length(encoded))
+  return Buffer.from(encoded).readUIntBE(0, length(encoded))
 }
 
 export function encode(n: number): Uint8Array {
