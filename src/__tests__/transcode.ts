@@ -5,30 +5,35 @@ import transcode, { fromHex, fromLatin1 } from '../transcode.js'
 describe('binary transcoder', () => {
   describe.each([
     {
+      binary: '00000000',
       hex: '00',
       latin1: '\u0000',
       number: 0,
       octets: [0],
     },
     {
+      binary: '010010110110010101111001',
       hex: '4b6579',
       latin1: 'Key',
       number: 4941177,
       octets: [0x4b, 0x65, 0x79],
     },
     {
+      binary: '01010111011010010110101101101001',
       hex: '57696b69',
       latin1: 'Wiki',
       number: 1466526569,
       octets: [0x57, 0x69, 0x6b, 0x69],
     },
     {
+      binary: '010100110110010101100011011100100110010101110100',
       hex: '536563726574',
       latin1: 'Secret',
       number: 91694925243764,
       octets: [0x53, 0x65, 0x63, 0x72, 0x65, 0x74],
     },
     {
+      binary: '111111111111111111111111111111111111111111111111',
       hex: 'ffffffffffff',
       latin1: 'ÿÿÿÿÿÿ',
       number: 281474976710655,
@@ -37,6 +42,7 @@ describe('binary transcoder', () => {
   ])(
     'text: "$latin1"',
     ({
+      binary,
       hex,
       latin1,
       number,
@@ -49,6 +55,14 @@ describe('binary transcoder', () => {
         {
           name: 'array',
           transcoder: transcode(octets),
+        },
+        // TODO: binary alias
+        {
+          name: 'binary explicit',
+          transcoder: transcode({
+            encoding: 'binary',
+            text: binary,
+          }),
         },
         {
           name: 'hex alias',
@@ -83,7 +97,14 @@ describe('binary transcoder', () => {
       ])(
         'input: $name',
         ({
-          transcoder: { toArray, toHex, toLatin1, toNumber, toUInt8Array },
+          transcoder: {
+            toArray,
+            toBinary,
+            toHex,
+            toLatin1,
+            toNumber,
+            toUInt8Array,
+          },
         }: {
           name: string
           transcoder: BinaryTranscoder
@@ -91,6 +112,12 @@ describe('binary transcoder', () => {
           describe('toArray()', () => {
             it('should return an untyped array', () => {
               expect(toArray()).toStrictEqual(octets)
+            })
+          })
+
+          describe('toBinary()', () => {
+            it('should return a binary string', () => {
+              expect(toBinary()).toBe(binary)
             })
           })
 
