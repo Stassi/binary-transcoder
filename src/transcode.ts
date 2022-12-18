@@ -1,13 +1,15 @@
 import { Buffer } from 'node:buffer'
+import toBinaryOctet from './octet/toBinary.js'
 import {
   decode as decodeNumber,
   encode as encodeNumber,
 } from './transcodeNumber.js'
 
-export type BinaryStringEncoding = 'hex' | 'latin1'
+export type BinaryStringEncoding = 'binary' | 'hex' | 'latin1'
 
 export type BinaryTranscoder = {
   toArray(): number[]
+  toBinary(): string
   toHex(): string
   toLatin1(): string
   toNumber(): number
@@ -37,6 +39,7 @@ export default function transcode(
             paramIsArray ? param : Buffer.from(param.text, param.encoding)
           )
     },
+    toNumber = (): number => decodeNumber(toUInt8Array()),
     toString = (encoding: BinaryStringEncoding) => (): string =>
       (paramIsString
         ? Buffer.from(param.text, param.encoding)
@@ -44,6 +47,7 @@ export default function transcode(
       ).toString(encoding)
 
   return {
+    toNumber,
     toUInt8Array,
     toHex: toString(HEX),
     toLatin1: toString(LATIN_1),
@@ -56,8 +60,8 @@ export default function transcode(
         ? [...encodeNumber(param)]
         : [...Buffer.from(param.text, param.encoding)]
     },
-    toNumber(): number {
-      return decodeNumber(toUInt8Array())
+    toBinary(): string {
+      return toBinaryOctet(toNumber())
     },
   }
 }
