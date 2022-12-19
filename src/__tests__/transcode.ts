@@ -1,10 +1,16 @@
 import type { BinaryStringEncoding, BinaryTranscoder } from '../transcode.js'
 import { describe, expect, it } from '@jest/globals'
-import transcode, { fromBinary, fromHex, fromLatin1 } from '../transcode.js'
+import transcode, {
+  fromBase64,
+  fromBinary,
+  fromHex,
+  fromLatin1,
+} from '../transcode.js'
 
 describe('binary transcoder', () => {
   describe.each([
     {
+      base64: 'AA==',
       binary: '00000000',
       hex: '00',
       latin1: '\u0000',
@@ -12,6 +18,7 @@ describe('binary transcoder', () => {
       octets: [0],
     },
     {
+      base64: 'S2V5',
       binary: '010010110110010101111001',
       hex: '4b6579',
       latin1: 'Key',
@@ -19,6 +26,7 @@ describe('binary transcoder', () => {
       octets: [0x4b, 0x65, 0x79],
     },
     {
+      base64: 'V2lraQ==',
       binary: '01010111011010010110101101101001',
       hex: '57696b69',
       latin1: 'Wiki',
@@ -26,6 +34,7 @@ describe('binary transcoder', () => {
       octets: [0x57, 0x69, 0x6b, 0x69],
     },
     {
+      base64: 'U2VjcmV0',
       binary: '010100110110010101100011011100100110010101110100',
       hex: '536563726574',
       latin1: 'Secret',
@@ -33,6 +42,7 @@ describe('binary transcoder', () => {
       octets: [0x53, 0x65, 0x63, 0x72, 0x65, 0x74],
     },
     {
+      base64: '////////',
       binary: '111111111111111111111111111111111111111111111111',
       hex: 'ffffffffffff',
       latin1: 'ÿÿÿÿÿÿ',
@@ -42,6 +52,7 @@ describe('binary transcoder', () => {
   ])(
     'text: "$latin1"',
     ({
+      base64,
       binary,
       hex,
       latin1,
@@ -55,6 +66,17 @@ describe('binary transcoder', () => {
         {
           name: 'array',
           transcoder: transcode(octets),
+        },
+        {
+          name: 'base64 alias',
+          transcoder: fromBase64(base64),
+        },
+        {
+          name: 'base64 explicit',
+          transcoder: transcode({
+            encoding: 'base64',
+            text: base64,
+          }),
         },
         {
           name: 'binary alias',
@@ -102,6 +124,7 @@ describe('binary transcoder', () => {
         ({
           transcoder: {
             toArray,
+            toBase64,
             toBinary,
             toHex,
             toLatin1,
@@ -115,6 +138,12 @@ describe('binary transcoder', () => {
           describe('toArray()', () => {
             it('should return an untyped array', () => {
               expect(toArray()).toStrictEqual(octets)
+            })
+          })
+
+          describe('toBase64()', () => {
+            it('should return a Base64 string', () => {
+              expect(toBase64()).toBe(base64)
             })
           })
 
