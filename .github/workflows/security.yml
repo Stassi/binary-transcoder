@@ -39,17 +39,29 @@ jobs:
         with:
           category: '/language:${{matrix.language}}'
 
-  monitor:
-    name: Snyk monitor
+  test:
+    name: Snyk test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - name: Checkout git repository
+        uses: actions/checkout@v3
+
+      - name: Use Node.js
+        uses: actions/setup-node@v3
         with:
           node-version: 19.3.x
-          registry-url: https://registry.npmjs.org/
-      - run: npm ci
-      - run: npm run security:auth
+          cache: 'npm'
+
+      - name: Clean installation
+        run: npm ci
+
+      - name: Run test suite
+        run: npm test
+
+      - name: Build (if present)
+        run: npm run build --if-present
+
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/node@master
         env:
-          SNYK_TOKEN: ${{secrets.SNYK_TOKEN}}
-      - run: npm run security:monitor
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
