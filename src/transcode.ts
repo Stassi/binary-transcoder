@@ -7,10 +7,11 @@ import {
   encode as encodeNumber,
 } from './transcodeNumber.js'
 
-export type BinaryStringEncoding = 'binary' | 'hex' | 'latin1'
+export type BinaryStringEncoding = 'base64' | 'binary' | 'hex' | 'latin1'
 
 export type BinaryTranscoder = {
   toArray(): number[]
+  toBase64(): string
   toBinary(): string
   toHex(): string
   toLatin1(): string
@@ -18,7 +19,8 @@ export type BinaryTranscoder = {
   toUInt8Array(): Uint8Array
 }
 
-const HEX = 'hex',
+const BASE_64 = 'base64',
+  HEX = 'hex',
   LATIN_1 = 'latin1',
   BINARY = 'binary',
   strictEqualsBinary: (x: string) => boolean = strictEquals(BINARY)
@@ -52,6 +54,7 @@ export default function transcode(
   return {
     toNumber,
     toUInt8Array,
+    toBase64: toString(BASE_64),
     toHex: toString(HEX),
     toLatin1: toString(LATIN_1),
     toArray(): number[] {
@@ -66,6 +69,9 @@ export default function transcode(
 function fromString(encoding: BinaryStringEncoding) {
   return (text: string): BinaryTranscoder => transcode({ encoding, text })
 }
+
+export const fromBase64: (text: string) => BinaryTranscoder =
+  fromString(BASE_64)
 
 export const fromBinary: (text: string) => BinaryTranscoder = fromString(BINARY)
 
