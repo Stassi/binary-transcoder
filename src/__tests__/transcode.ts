@@ -1,6 +1,6 @@
 import type { BinaryStringEncoding, BinaryTranscoder } from '../transcode.js'
 import { describe, expect, it } from '@jest/globals'
-import transcode, { fromHex, fromLatin1 } from '../transcode.js'
+import transcode, { fromBinary, fromHex, fromLatin1 } from '../transcode.js'
 
 describe('binary transcoder', () => {
   describe.each([
@@ -56,7 +56,10 @@ describe('binary transcoder', () => {
           name: 'array',
           transcoder: transcode(octets),
         },
-        // TODO: binary alias
+        {
+          name: 'binary alias',
+          transcoder: fromBinary(binary),
+        },
         {
           name: 'binary explicit',
           transcoder: transcode({
