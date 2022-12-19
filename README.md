@@ -28,7 +28,7 @@ _Further information: [`Number` (MDN)](https://developer.mozilla.org/en-US/docs/
 
 _Further information: [Binary number (Wikipedia)](https://en.wikipedia.org/wiki/Binary_number) | [`node:buffer` character encodings (Node.js)](https://nodejs.org/docs/latest-v19.x/api/buffer.html#buffers-and-character-encodings)_
 
-- `'binary'` (true binary, not the legacy Node.js alias of the same name for `latin1`)
+- `'binary'` (binary number `string`, not the legacy Node.js alias of the same name for `'latin1'` encoding)
 - `'hex'`
 - `'latin1'`
 
