@@ -7,6 +7,7 @@
 ![code size](https://img.shields.io/github/languages/code-size/stassi/binary-transcoder)
 ![minified size](https://img.shields.io/bundlephobia/min/@stassi/binary-transcoder)
 ![minzipped size](https://img.shields.io/bundlephobia/minzip/@stassi/binary-transcoder)
+[![package health](https://snyk.io/advisor/npm-package/@stassi/binary-transcoder/badge.svg)](https://snyk.io/advisor/npm-package/@stassi/binary-transcoder)
 [![Continuous integration](https://github.com/Stassi/binary-transcoder/actions/workflows/ci.yml/badge.svg)](https://github.com/Stassi/binary-transcoder/actions/workflows/ci.yml)
 [![Security](https://github.com/Stassi/binary-transcoder/actions/workflows/security.yml/badge.svg)](https://github.com/Stassi/binary-transcoder/actions/workflows/security.yml)
 
