@@ -26,8 +26,9 @@ _Further information: [`Number` (MDN)](https://developer.mozilla.org/en-US/docs/
 
 ### `string`
 
-_Further information: [`node:buffer` character encodings (Node.js)](https://nodejs.org/docs/latest-v19.x/api/buffer.html#buffers-and-character-encodings)_
+_Further information: [Binary number (Wikipedia)](https://en.wikipedia.org/wiki/Binary_number) | [`node:buffer` character encodings (Node.js)](https://nodejs.org/docs/latest-v19.x/api/buffer.html#buffers-and-character-encodings)_
 
+- `'binary'` (true binary, not the legacy Node.js alias of the same name for `latin1`)
 - `'hex'`
 - `'latin1'`
 
@@ -50,19 +51,30 @@ npm i @stassi/binary-transcoder
 #### ES module
 
 ```javascript
-import { fromHex, fromLatin1, transcode } from '@stassi/binary-transcoder'
+import {
+  fromBinary,
+  fromHex,
+  fromLatin1,
+  transcode,
+} from '@stassi/binary-transcoder'
 ```
 
 #### CommonJS
 
 ```javascript
-const { fromHex, fromLatin1, transcode } = require('@stassi/binary-transcoder')
+const {
+  fromBinary,
+  fromHex,
+  fromLatin1,
+  transcode,
+} = require('@stassi/binary-transcoder')
 ```
 
 ### Web
 
 ```javascript
 import {
+  fromBinary,
   fromHex,
   fromLatin1,
   transcode,
@@ -70,6 +82,28 @@ import {
 ```
 
 ## Examples
+
+### Binary encoding
+
+```javascript
+transcode([0b1001011, 0b1100101, 0b1111001]).toBinary()
+// '010010110110010101111001'
+```
+
+### Binary decoding
+
+```javascript
+fromBinary('010010110110010101111001').toUInt8Array()
+// Uint8Array <4B, 65, 79>
+```
+
+```javascript
+transcode({
+  encoding: 'binary',
+  text: '010010110110010101111001',
+}).toUInt8Array()
+// Uint8Array <4B, 65, 79>
+```
 
 ### Hexadecimal encoding
 
@@ -201,9 +235,10 @@ type Transcode = (
     | number
     | number[]
     | Uint8Array
-    | { encoding: 'hex' | 'latin1'; text: string }
+    | { encoding: 'binary' | 'hex' | 'latin1'; text: string }
 ) => {
   toArray(): number[]
+  toBinary(): string
   toHex(): string
   toLatin1(): string
   toNumber(): number
@@ -211,11 +246,12 @@ type Transcode = (
 }
 ```
 
-### `fromHex`, `fromLatin1`
+### `fromBinary`, `fromHex`, `fromLatin1`
 
 ```typescript
 type FromString = (text: string) => {
   toArray(): number[]
+  toBinary(): string
   toHex(): string
   toLatin1(): string
   toNumber(): number
