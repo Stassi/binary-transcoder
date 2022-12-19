@@ -28,7 +28,8 @@ _Further information: [`Number` (MDN)](https://developer.mozilla.org/en-US/docs/
 
 _Further information: [Binary number (Wikipedia)](https://en.wikipedia.org/wiki/Binary_number) | [`node:buffer` character encodings (Node.js)](https://nodejs.org/docs/latest-v19.x/api/buffer.html#buffers-and-character-encodings)_
 
-- `'binary'` (true binary, not the legacy Node.js alias of the same name for `latin1`)
+- `'base64'`
+- `'binary'` (binary number `string`, not the legacy Node.js alias of the same name for `'latin1'` encoding)
 - `'hex'`
 - `'latin1'`
 
@@ -52,6 +53,7 @@ npm i @stassi/binary-transcoder
 
 ```javascript
 import {
+  fromBase64,
   fromBinary,
   fromHex,
   fromLatin1,
@@ -63,6 +65,7 @@ import {
 
 ```javascript
 const {
+  fromBase64,
   fromBinary,
   fromHex,
   fromLatin1,
@@ -74,6 +77,7 @@ const {
 
 ```javascript
 import {
+  fromBase64,
   fromBinary,
   fromHex,
   fromLatin1,
@@ -82,6 +86,28 @@ import {
 ```
 
 ## Examples
+
+### Base64 encoding
+
+```javascript
+transcode([0x4b, 0x65, 0x79]).toBase64()
+// 'S2V5'
+```
+
+### Base64 decoding
+
+```javascript
+fromBase64('S2V5').toUInt8Array()
+// Uint8Array <4B, 65, 79>
+```
+
+```javascript
+transcode({
+  encoding: 'base64',
+  text: 'S2V5',
+}).toUInt8Array()
+// Uint8Array <4B, 65, 79>
+```
 
 ### Binary encoding
 
@@ -235,9 +261,13 @@ type Transcode = (
     | number
     | number[]
     | Uint8Array
-    | { encoding: 'binary' | 'hex' | 'latin1'; text: string }
+    | {
+        encoding: 'base64' | 'binary' | 'hex' | 'latin1'
+        text: string
+      }
 ) => {
   toArray(): number[]
+  toBase64(): string
   toBinary(): string
   toHex(): string
   toLatin1(): string
@@ -246,11 +276,12 @@ type Transcode = (
 }
 ```
 
-### `fromBinary`, `fromHex`, `fromLatin1`
+### `fromBase64`, `fromBinary`, `fromHex`, `fromLatin1`
 
 ```typescript
 type FromString = (text: string) => {
   toArray(): number[]
+  toBase64(): string
   toBinary(): string
   toHex(): string
   toLatin1(): string
