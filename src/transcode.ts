@@ -71,6 +71,8 @@ function fromString(encoding: BinaryStringEncoding) {
   return (text: string): BinaryTranscoder => transcode({ encoding, text })
 }
 
+export const fromBinary: (text: string) => BinaryTranscoder = fromString(BINARY)
+
 export const fromHex: (text: string) => BinaryTranscoder = fromString(HEX)
 
 export const fromLatin1: (text: string) => BinaryTranscoder =
