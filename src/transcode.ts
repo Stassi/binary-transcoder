@@ -35,20 +35,16 @@ export default function transcode(
     paramIsString = !paramIsNumber && 'encoding' in param && 'text' in param,
     paramIsBinary = paramIsString && strictEqualsBinary(param.encoding),
     paramIsUInt8 = param instanceof Uint8Array,
-    toUInt8Array = (): Uint8Array => {
-      // TODO: Declarative replacement via ternary expressions
-      if (paramIsUInt8) {
-        return param
-      } else if (paramIsNumber) {
-        return encodeNumber(param)
-      } else if (paramIsBinary) {
-        return encodeNumber(toDecimalOctet(param.text))
-      } else if (paramIsArray) {
-        return Uint8Array.from(param)
-      } else {
-        return Uint8Array.from(Buffer.from(param.text, param.encoding))
-      }
-    },
+    toUInt8Array = (): Uint8Array =>
+      paramIsNumber
+        ? encodeNumber(param)
+        : paramIsBinary
+        ? encodeNumber(toDecimalOctet(param.text))
+        : paramIsArray
+        ? Uint8Array.from(param)
+        : paramIsString
+        ? Uint8Array.from(Buffer.from(param.text, param.encoding))
+        : param,
     toNumber = (): number => decodeNumber(toUInt8Array()),
     toString = (targetEncoding: BinaryStringEncoding) => (): string =>
       Buffer.from(toUInt8Array()).toString(targetEncoding)
