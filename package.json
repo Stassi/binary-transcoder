@@ -42,7 +42,7 @@
     "url": "git+https://github.com/Stassi/binary-transcoder.git"
   },
   "scripts": {
-    "build": "rollup -c --bundleConfigAsCjs",
+    "build": "rollup -c",
     "prepublishOnly": "npm run build",
     "test": "npm run test:package && npm run test:style && npm run test:jest",
     "test:jest": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
