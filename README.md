@@ -34,6 +34,7 @@ _Further information: [Binary number (Wikipedia)](https://en.wikipedia.org/wiki/
 - `'binary'` (binary number `string`, not the legacy Node.js alias of the same name for `'latin1'` encoding)
 - `'hex'`
 - `'latin1'`
+- `'utf8'` (encoding output only)
 
 ## Demo
 
@@ -163,6 +164,28 @@ transcode({
 // 'Key'
 ```
 
+### Latin-1 encoding
+
+```javascript
+transcode([0x4b, 0x65, 0x79]).toLatin1()
+// 'Key'
+```
+
+### Latin-1 decoding
+
+```javascript
+fromLatin1('Key').toUInt8Array()
+// Uint8Array <4B, 65, 79>
+```
+
+```javascript
+transcode({
+  encoding: 'latin1',
+  text: 'Key',
+}).toUInt8Array()
+// Uint8Array <4B, 65, 79>
+```
+
 ### `number` encoding
 
 ```javascript
@@ -251,6 +274,13 @@ transcode(Uint8Array.from([75, 101, 121])).toLatin1()
 // 'Key'
 ```
 
+### UTF-8 encoding
+
+```javascript
+transcode([0x4b, 0x65, 0x79]).toUTF8()
+// 'Key'
+```
+
 ## Interface & types
 
 Function signatures provided here for reference. Built-in types are automatically usable in JavaScript. TypeScript is optional and not required.
@@ -275,6 +305,7 @@ type Transcode = (
   toLatin1(): string
   toNumber(): number
   toUInt8Array(): Uint8Array
+  toUTF8(): string
 }
 ```
 
@@ -289,5 +320,6 @@ type FromString = (text: string) => {
   toLatin1(): string
   toNumber(): number
   toUInt8Array(): Uint8Array
+  toUTF8(): string
 }
 ```
