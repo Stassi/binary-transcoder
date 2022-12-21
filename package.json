@@ -1,6 +1,6 @@
 {
   "name": "@stassi/binary-transcoder",
-  "version": "0.5.6",
+  "version": "0.6.0",
   "description": "Convert binary data between common formats and encodings.",
   "keywords": [
     "8-bit",
@@ -42,7 +42,7 @@
     "url": "git+https://github.com/Stassi/binary-transcoder.git"
   },
   "scripts": {
-    "build": "rollup -c --bundleConfigAsCjs",
+    "build": "rollup -c",
     "prepublishOnly": "npm run build",
     "test": "npm run test:package && npm run test:style && npm run test:jest",
     "test:jest": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
@@ -52,7 +52,7 @@
   "devDependencies": {
     "@jest/globals": "^29.3.1",
     "@rollup/plugin-alias": "^4.0.2",
-    "@rollup/plugin-terser": "^0.2.0",
+    "@rollup/plugin-terser": "^0.2.1",
     "@rollup/plugin-typescript": "^10.0.1",
     "@skypack/package-check": "^0.2.2",
     "@typescript-eslint/eslint-plugin": "^5.47.0",

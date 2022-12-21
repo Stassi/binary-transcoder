@@ -16,6 +16,7 @@ describe('binary transcoder', () => {
       latin1: '\u0000',
       number: 0,
       octets: [0],
+      utf8: '\u0000',
     },
     {
       base64: 'S2V5',
@@ -24,6 +25,7 @@ describe('binary transcoder', () => {
       latin1: 'Key',
       number: 4941177,
       octets: [0x4b, 0x65, 0x79],
+      utf8: 'Key',
     },
     {
       base64: 'V2lraQ==',
@@ -32,6 +34,7 @@ describe('binary transcoder', () => {
       latin1: 'Wiki',
       number: 1466526569,
       octets: [0x57, 0x69, 0x6b, 0x69],
+      utf8: 'Wiki',
     },
     {
       base64: 'U2VjcmV0',
@@ -40,6 +43,7 @@ describe('binary transcoder', () => {
       latin1: 'Secret',
       number: 91694925243764,
       octets: [0x53, 0x65, 0x63, 0x72, 0x65, 0x74],
+      utf8: 'Secret',
     },
     {
       base64: '////////',
@@ -48,6 +52,7 @@ describe('binary transcoder', () => {
       latin1: 'ÿÿÿÿÿÿ',
       number: 281474976710655,
       octets: [0xff, 0xff, 0xff, 0xff, 0xff, 0xff],
+      utf8: '������',
     },
   ])(
     'text: "$latin1"',
@@ -58,10 +63,11 @@ describe('binary transcoder', () => {
       latin1,
       number,
       octets,
+      utf8,
     }: {
       number: number
       octets: number[]
-    } & Record<BinaryStringEncoding, string>) => {
+    } & Record<BinaryStringEncoding | 'utf8', string>) => {
       describe.each([
         {
           name: 'array',
@@ -130,6 +136,7 @@ describe('binary transcoder', () => {
             toLatin1,
             toNumber,
             toUInt8Array,
+            toUTF8,
           },
         }: {
           name: string
@@ -174,6 +181,12 @@ describe('binary transcoder', () => {
           describe('toUInt8Array()', () => {
             it('should return an octet typed array', () => {
               expect([...toUInt8Array()]).toStrictEqual(octets)
+            })
+          })
+
+          describe('toUTF8()', () => {
+            it('should return a UTF-8 string', () => {
+              expect(toUTF8()).toBe(utf8)
             })
           })
         }

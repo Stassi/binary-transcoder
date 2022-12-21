@@ -17,11 +17,13 @@ export type BinaryTranscoder = {
   toLatin1(): string
   toNumber(): number
   toUInt8Array(): Uint8Array
+  toUTF8(): string
 }
 
 const BASE_64 = 'base64',
   HEX = 'hex',
   LATIN_1 = 'latin1',
+  UTF_8 = 'utf8',
   BINARY = 'binary',
   strictEqualsBinary: (x: string) => boolean = strictEquals(BINARY)
 
@@ -48,7 +50,7 @@ export default function transcode(
         ? Uint8Array.from(Buffer.from(param.text, param.encoding))
         : param,
     toNumber = (): number => decodeNumber(toUInt8Array()),
-    toString = (targetEncoding: BinaryStringEncoding) => (): string =>
+    toString = (targetEncoding: BinaryStringEncoding | 'utf8') => (): string =>
       Buffer.from(toUInt8Array()).toString(targetEncoding)
 
   return {
@@ -57,6 +59,7 @@ export default function transcode(
     toBase64: toString(BASE_64),
     toHex: toString(HEX),
     toLatin1: toString(LATIN_1),
+    toUTF8: toString(UTF_8),
     toArray(): number[] {
       return [...toUInt8Array()]
     },
