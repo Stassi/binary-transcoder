@@ -28,11 +28,12 @@ _Further information: [`Number` (MDN)](https://developer.mozilla.org/en-US/docs/
 
 ### `string`
 
-_Further information: [Binary number (Wikipedia)](https://en.wikipedia.org/wiki/Binary_number) | [`node:buffer` character encodings (Node.js)](https://nodejs.org/docs/latest-v19.x/api/buffer.html#buffers-and-character-encodings)_
+_Further information: [Binary number (Wikipedia)](https://en.wikipedia.org/wiki/Binary_number) | [`JSON` (MDN)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON) | [`node:buffer` character encodings (Node.js)](https://nodejs.org/docs/latest-v19.x/api/buffer.html#buffers-and-character-encodings)_
 
 - `'base64'`
 - `'binary'` (binary number `string`, not the legacy Node.js alias of the same name for `'latin1'` encoding)
 - `'hex'`
+- `'json'`
 - `'latin1'`
 - `'utf8'` (encoding output only)
 
@@ -160,6 +161,36 @@ fromHex('4b6579').toLatin1()
 transcode({
   encoding: 'hex',
   text: '4b6579',
+}).toLatin1()
+// 'Key'
+```
+
+### JSON encoding
+
+```javascript
+fromLatin1('Key').toJSON()
+// '{"type":"Buffer","data":[75,101,121]}'
+```
+
+```javascript
+transcode({
+  encoding: 'latin1',
+  text: 'Key',
+}).toJSON()
+// '{"type":"Buffer","data":[75,101,121]}'
+```
+
+### JSON decoding
+
+```javascript
+fromJSON('{"type":"Buffer","data":[75,101,121]}').toLatin1()
+// 'Key'
+```
+
+```javascript
+transcode({
+  encoding: 'json',
+  text: '{"type":"Buffer","data":[75,101,121]}',
 }).toLatin1()
 // 'Key'
 ```
@@ -294,7 +325,7 @@ type Transcode = (
     | number[]
     | Uint8Array
     | {
-        encoding: 'base64' | 'binary' | 'hex' | 'latin1'
+        encoding: 'base64' | 'binary' | 'hex' | 'json' | 'latin1'
         text: string
       }
 ) => {
@@ -302,6 +333,7 @@ type Transcode = (
   toBase64(): string
   toBinary(): string
   toHex(): string
+  toJSON(): string
   toLatin1(): string
   toNumber(): number
   toUInt8Array(): Uint8Array
@@ -309,7 +341,7 @@ type Transcode = (
 }
 ```
 
-### `fromBase64`, `fromBinary`, `fromHex`, `fromLatin1`
+### `fromBase64`, `fromBinary`, `fromHex`, `fromJSON`, `fromLatin1`
 
 ```typescript
 type FromString = (text: string) => {
@@ -317,6 +349,7 @@ type FromString = (text: string) => {
   toBase64(): string
   toBinary(): string
   toHex(): string
+  toJSON(): string
   toLatin1(): string
   toNumber(): number
   toUInt8Array(): Uint8Array
