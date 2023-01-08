@@ -19,7 +19,8 @@ type EncoderMethod<T, K extends string> = Record<`to${MethodCase<K>}`, () => T>
 
 export type BinaryStringEncoding = BufferEncoding | BufferEncodingNonstandard
 
-export type BinaryTranscoder = EncoderMethod<number[], 'array'> &
+export type BinaryTranscoder = EncoderMethod<Buffer, 'buffer'> &
+  EncoderMethod<number[], 'array'> &
   EncoderMethod<number, 'number'> &
   EncoderMethod<Uint8Array, 'uInt8Array'> &
   EncoderMethod<string, BinaryStringEncoding>
@@ -76,6 +77,9 @@ export default function transcode(
     },
     toBinary(): string {
       return toBinaryOctet(toNumber())
+    },
+    toBuffer(): Buffer {
+      return Buffer.from(toUInt8Array())
     },
     toJSON(): string {
       return JSON.stringify(Buffer.from(toUInt8Array()))

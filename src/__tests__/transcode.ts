@@ -1,4 +1,5 @@
 import type { BinaryStringEncoding, BinaryTranscoder } from '../transcode.js'
+import { Buffer } from 'node:buffer'
 import { describe, expect, it } from '@jest/globals'
 import transcode, {
   fromBase64,
@@ -154,6 +155,7 @@ describe('binary transcoder', () => {
             toArray,
             toBase64,
             toBinary,
+            toBuffer,
             toHex,
             toJSON,
             toLatin1,
@@ -180,6 +182,12 @@ describe('binary transcoder', () => {
           describe('toBinary()', () => {
             it('should return a binary string', () => {
               expect(toBinary()).toBe(binary)
+            })
+          })
+
+          describe('toBuffer()', () => {
+            it('should return a buffer', () => {
+              expect([...toBuffer()]).toStrictEqual(octets)
             })
           })
 

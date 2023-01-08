@@ -24,7 +24,7 @@ _Further information: [`Uint8Array` (MDN)](https://developer.mozilla.org/en-US/d
 
 _Further information: [`node:buffer` (Node.js)](https://nodejs.org/docs/latest-v19.x/api/buffer.html)_
 
-- `Buffer` (decoding input only)
+- `Buffer` (browser-compatible, Node.js not required)
 
 ### `number`
 
@@ -41,7 +41,7 @@ _Further information: [Binary number (Wikipedia)](https://en.wikipedia.org/wiki/
 - `'hex'`
 - `'json'`
 - `'latin1'`
-- `'utf8'` (encoding output only)
+- `'utf8'` (encode output only)
 
 ## Demo
 
@@ -144,11 +144,26 @@ transcode({
 // Uint8Array <4B, 65, 79>
 ```
 
+### Buffer encoding
+
+```javascript
+fromHex('4b6579').toBuffer()
+// Buffer <4B, 65, 79>
+```
+
+```javascript
+transcode({
+  encoding: 'hex',
+  text: '4b6579',
+}).toBuffer()
+// Buffer <4B, 65, 79>
+```
+
 ### Buffer decoding
 
 ```javascript
-transcode(Buffer.from([0x4b, 0x65, 0x79])).toLatin1()
-// 'Key'
+transcode(Buffer.from([0x4b, 0x65, 0x79])).toHex()
+// '4b6579'
 ```
 
 ### Hexadecimal encoding
@@ -349,6 +364,7 @@ type Transcode = (
   toArray(): number[]
   toBase64(): string
   toBinary(): string
+  toBuffer(): Buffer
   toHex(): string
   toJSON(): string
   toLatin1(): string
@@ -365,6 +381,7 @@ type FromString = (text: string) => {
   toArray(): number[]
   toBase64(): string
   toBinary(): string
+  toBuffer(): Buffer
   toHex(): string
   toJSON(): string
   toLatin1(): string
