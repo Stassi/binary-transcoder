@@ -20,6 +20,12 @@ _Further information: [`Uint8Array` (MDN)](https://developer.mozilla.org/en-US/d
 - `number[]`
 - `Uint8Array`
 
+### `Buffer`
+
+_Further information: [`node:buffer` (Node.js)](https://nodejs.org/docs/latest-v19.x/api/buffer.html)_
+
+- `Buffer` (decoding input only)
+
 ### `number`
 
 _Further information: [`Number` (MDN)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)_
@@ -136,6 +142,13 @@ transcode({
   text: '010010110110010101111001',
 }).toUInt8Array()
 // Uint8Array <4B, 65, 79>
+```
+
+### Buffer decoding
+
+```javascript
+transcode(Buffer.from([0x4b, 0x65, 0x79])).toLatin1()
+// 'Key'
 ```
 
 ### Hexadecimal encoding
@@ -324,6 +337,7 @@ Function signatures provided here for reference. Built-in types are automaticall
 ```typescript
 type Transcode = (
   param:
+    | Buffer
     | number
     | number[]
     | Uint8Array
