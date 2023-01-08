@@ -9,20 +9,20 @@ import {
 
 type BufferEncoding = 'base64' | 'hex' | 'latin1' | 'utf8'
 type BufferEncodingNonstandard = 'binary' | 'json'
+type EncodingAcronym = 'json' | 'utf8'
+
+type MethodCase<T extends string> = T extends EncodingAcronym
+  ? Uppercase<T>
+  : Capitalize<T>
+
+type EncoderMethod<T, K extends string> = Record<`to${MethodCase<K>}`, () => T>
 
 export type BinaryStringEncoding = BufferEncoding | BufferEncodingNonstandard
 
-export type BinaryTranscoder = {
-  toArray(): number[]
-  toBase64(): string
-  toBinary(): string
-  toHex(): string
-  toJSON(): string
-  toLatin1(): string
-  toNumber(): number
-  toUInt8Array(): Uint8Array
-  toUTF8(): string
-}
+export type BinaryTranscoder = EncoderMethod<number[], 'array'> &
+  EncoderMethod<number, 'number'> &
+  EncoderMethod<Uint8Array, 'uInt8Array'> &
+  EncoderMethod<string, BinaryStringEncoding>
 
 const BASE_64 = 'base64',
   BINARY = 'binary',
