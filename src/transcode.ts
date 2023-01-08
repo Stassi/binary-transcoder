@@ -39,7 +39,6 @@ export default function transcode(
     paramIsNumber = typeof param === 'number',
     paramIsString = !paramIsNumber && 'encoding' in param && 'text' in param,
     paramIsBinary = paramIsString && strictEqualsBinary(param.encoding),
-    paramIsUInt8 = param instanceof Uint8Array,
     toUInt8Array = (): Uint8Array =>
       paramIsNumber
         ? encodeNumber(param)
