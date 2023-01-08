@@ -97,5 +97,8 @@ export const fromBinary: (text: string) => BinaryTranscoder = fromString(BINARY)
 
 export const fromHex: (text: string) => BinaryTranscoder = fromString(HEX)
 
+export const fromJSON: (text: string) => BinaryTranscoder =
+  fromString(JSON_STRING)
+
 export const fromLatin1: (text: string) => BinaryTranscoder =
   fromString(LATIN_1)
