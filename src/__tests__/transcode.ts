@@ -16,7 +16,7 @@ describe('binary transcoder', () => {
       json: '{"type":"Buffer","data":[0]}',
       latin1: '\u0000',
       number: 0,
-      octets: [0],
+      octets: [0x00],
       utf8: '\u0000',
     },
     {
