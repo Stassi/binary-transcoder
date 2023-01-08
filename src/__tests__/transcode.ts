@@ -103,6 +103,10 @@ describe('binary transcoder', () => {
           }),
         },
         {
+          name: 'buffer',
+          transcoder: transcode(Buffer.from(octets)),
+        },
+        {
           name: 'hex alias',
           transcoder: fromHex(hex),
         },
