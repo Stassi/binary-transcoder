@@ -73,7 +73,7 @@ describe('binary transcoder', () => {
     }: {
       number: number
       octets: number[]
-    } & Record<BinaryStringEncoding | 'json' | 'utf8', string>) => {
+    } & Record<BinaryStringEncoding, string>) => {
       describe.each([
         {
           name: 'array',
@@ -110,6 +110,14 @@ describe('binary transcoder', () => {
           transcoder: transcode({
             encoding: 'hex',
             text: hex,
+          }),
+        },
+        // TODO: JSON alias
+        {
+          name: 'json explicit',
+          transcoder: transcode({
+            encoding: 'json',
+            text: json,
           }),
         },
         {
