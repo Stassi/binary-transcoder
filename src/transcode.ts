@@ -7,7 +7,10 @@ import {
   encode as encodeNumber,
 } from './transcodeNumber.js'
 
-export type BinaryStringEncoding = 'base64' | 'binary' | 'hex' | 'latin1'
+type BufferEncoding = 'base64' | 'hex' | 'latin1' | 'utf8'
+type BufferEncodingNonstandard = 'binary' | 'json'
+
+export type BinaryStringEncoding = BufferEncoding | BufferEncodingNonstandard
 
 export type BinaryTranscoder = {
   toArray(): number[]
@@ -22,11 +25,13 @@ export type BinaryTranscoder = {
 }
 
 const BASE_64 = 'base64',
+  BINARY = 'binary',
   HEX = 'hex',
+  JSON_STRING = 'json',
   LATIN_1 = 'latin1',
   UTF_8 = 'utf8',
-  BINARY = 'binary',
-  strictEqualsBinary: (x: string) => boolean = strictEquals(BINARY)
+  strictEqualsBinary: (x: string) => boolean = strictEquals(BINARY),
+  strictEqualsJSON: (x: string) => boolean = strictEquals(JSON_STRING)
 
 export default function transcode(
   param:
@@ -39,18 +44,27 @@ export default function transcode(
     paramIsNumber = typeof param === 'number',
     paramIsString = !paramIsNumber && 'encoding' in param && 'text' in param,
     paramIsBinary = paramIsString && strictEqualsBinary(param.encoding),
-    toUInt8Array = (): Uint8Array =>
-      paramIsNumber
-        ? encodeNumber(param)
-        : paramIsBinary
-        ? encodeNumber(toDecimalOctet(param.text))
-        : paramIsArray
-        ? Uint8Array.from(param)
-        : paramIsString
-        ? Uint8Array.from(Buffer.from(param.text, param.encoding))
-        : param,
+    paramIsJSON = paramIsString && strictEqualsJSON(param.encoding),
+    toUInt8Array = (): Uint8Array => {
+      // TODO: Return ternary expression
+      if (paramIsNumber) {
+        return encodeNumber(param)
+      } else if (paramIsBinary) {
+        return encodeNumber(toDecimalOctet(param.text))
+      } else if (paramIsJSON) {
+        return Buffer.from(JSON.parse(param.text))
+      } else if (paramIsArray) {
+        return Uint8Array.from(param)
+      } else if (paramIsString) {
+        return Uint8Array.from(
+          Buffer.from(param.text, <BufferEncoding>param.encoding)
+        )
+      } else {
+        return param
+      }
+    },
     toNumber = (): number => decodeNumber(toUInt8Array()),
-    toString = (targetEncoding: BinaryStringEncoding | 'utf8') => (): string =>
+    toString = (targetEncoding: BufferEncoding) => (): string =>
       Buffer.from(toUInt8Array()).toString(targetEncoding)
 
   return {
@@ -67,7 +81,7 @@ export default function transcode(
       return toBinaryOctet(toNumber())
     },
     toJSON(): string {
-      return JSON.stringify(Buffer.from(toUInt8Array()).toJSON())
+      return JSON.stringify(Buffer.from(toUInt8Array()))
     },
   }
 }
