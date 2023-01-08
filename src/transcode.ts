@@ -14,6 +14,7 @@ export type BinaryTranscoder = {
   toBase64(): string
   toBinary(): string
   toHex(): string
+  toJSON(): string
   toLatin1(): string
   toNumber(): number
   toUInt8Array(): Uint8Array
@@ -65,6 +66,9 @@ export default function transcode(
     },
     toBinary(): string {
       return toBinaryOctet(toNumber())
+    },
+    toJSON(): string {
+      return JSON.stringify(Buffer.from(toUInt8Array()).toJSON())
     },
   }
 }
