@@ -4,6 +4,7 @@ import transcode, {
   fromBase64,
   fromBinary,
   fromHex,
+  fromJSON,
   fromLatin1,
 } from '../transcode.js'
 
@@ -112,7 +113,10 @@ describe('binary transcoder', () => {
             text: hex,
           }),
         },
-        // TODO: JSON alias
+        {
+          name: 'json alias',
+          transcoder: fromJSON(json),
+        },
         {
           name: 'json explicit',
           transcoder: transcode({
