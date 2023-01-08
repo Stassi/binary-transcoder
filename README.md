@@ -60,6 +60,7 @@ import {
   fromBase64,
   fromBinary,
   fromHex,
+  fromJSON,
   fromLatin1,
   transcode,
 } from '@stassi/binary-transcoder'
@@ -72,6 +73,7 @@ const {
   fromBase64,
   fromBinary,
   fromHex,
+  fromJSON,
   fromLatin1,
   transcode,
 } = require('@stassi/binary-transcoder')
@@ -84,6 +86,7 @@ import {
   fromBase64,
   fromBinary,
   fromHex,
+  fromJSON,
   fromLatin1,
   transcode,
 } from 'https://cdn.skypack.dev/@stassi/binary-transcoder'
