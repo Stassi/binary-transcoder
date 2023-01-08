@@ -35,6 +35,7 @@ const BASE_64 = 'base64',
 
 export default function transcode(
   param:
+    | Buffer
     | number
     | number[]
     | Uint8Array
