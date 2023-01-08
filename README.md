@@ -24,7 +24,7 @@ _Further information: [`Uint8Array` (MDN)](https://developer.mozilla.org/en-US/d
 
 _Further information: [`node:buffer` (Node.js)](https://nodejs.org/docs/latest-v19.x/api/buffer.html)_
 
-- `Buffer` (decoding input only)
+- `Buffer` (decode input only)
 
 ### `number`
 
@@ -41,7 +41,7 @@ _Further information: [Binary number (Wikipedia)](https://en.wikipedia.org/wiki/
 - `'hex'`
 - `'json'`
 - `'latin1'`
-- `'utf8'` (encoding output only)
+- `'utf8'` (encode output only)
 
 ## Demo
 
