@@ -37,6 +37,7 @@ _Further information: [`Number` (MDN)](https://developer.mozilla.org/en-US/docs/
 _Further information: [Binary number (Wikipedia)](https://en.wikipedia.org/wiki/Binary_number) | [`JSON` (MDN)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON) | [`node:buffer` character encodings (Node.js)](https://nodejs.org/docs/latest-v19.x/api/buffer.html#buffers-and-character-encodings)_
 
 - `'base64'`
+- `'base64url'`
 - `'binary'` (binary number `string`, not the legacy Node.js alias of the same name for `'latin1'` encoding)
 - `'hex'`
 - `'json'`
@@ -64,6 +65,7 @@ npm i @stassi/binary-transcoder
 ```javascript
 import {
   fromBase64,
+  fromBase64URL,
   fromBinary,
   fromHex,
   fromJSON,
@@ -77,6 +79,7 @@ import {
 ```javascript
 const {
   fromBase64,
+  fromBase64URL,
   fromBinary,
   fromHex,
   fromJSON,
@@ -90,6 +93,7 @@ const {
 ```javascript
 import {
   fromBase64,
+  fromBase64URL,
   fromBinary,
   fromHex,
   fromJSON,
@@ -103,23 +107,45 @@ import {
 ### Base64 encoding
 
 ```javascript
-transcode([0x4b, 0x65, 0x79]).toBase64()
-// 'S2V5'
+transcode([0x3e, 0x3f, 0xfe, 0xff]).toBase64()
+// 'Pj/+/w=='
 ```
 
 ### Base64 decoding
 
 ```javascript
-fromBase64('S2V5').toUInt8Array()
-// Uint8Array <4B, 65, 79>
+fromBase64('Pj/+/w==').toUInt8Array()
+// Uint8Array <3E, 3F, FE, FF>
 ```
 
 ```javascript
 transcode({
   encoding: 'base64',
-  text: 'S2V5',
+  text: 'Pj/+/w==',
 }).toUInt8Array()
-// Uint8Array <4B, 65, 79>
+// Uint8Array <3E, 3F, FE, FF>
+```
+
+### Base64URL encoding
+
+```javascript
+transcode([0x3e, 0x3f, 0xfe, 0xff]).toBase64URL()
+// 'Pj_-_w'
+```
+
+### Base64URL decoding
+
+```javascript
+fromBase64URL('Pj_-_w').toUInt8Array()
+// Uint8Array <3E, 3F, FE, FF>
+```
+
+```javascript
+transcode({
+  encoding: 'base64url',
+  text: 'Pj_-_w',
+}).toUInt8Array()
+// Uint8Array <3E, 3F, FE, FF>
 ```
 
 ### Binary encoding
@@ -357,12 +383,13 @@ type Transcode = (
     | number[]
     | Uint8Array
     | {
-        encoding: 'base64' | 'binary' | 'hex' | 'json' | 'latin1'
+        encoding: 'base64' | 'base64url' | 'binary' | 'hex' | 'json' | 'latin1'
         text: string
       }
 ) => {
   toArray(): number[]
   toBase64(): string
+  toBase64URL(): string
   toBinary(): string
   toBuffer(): Buffer
   toHex(): string
@@ -374,12 +401,13 @@ type Transcode = (
 }
 ```
 
-### `fromBase64`, `fromBinary`, `fromHex`, `fromJSON`, `fromLatin1`
+### `fromBase64`, `fromBase64URL`, `fromBinary`, `fromHex`, `fromJSON`, `fromLatin1`
 
 ```typescript
 type FromString = (text: string) => {
   toArray(): number[]
   toBase64(): string
+  toBase64URL(): string
   toBinary(): string
   toBuffer(): Buffer
   toHex(): string

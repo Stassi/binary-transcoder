@@ -3,6 +3,7 @@ import { Buffer } from 'node:buffer'
 import { describe, expect, it } from '@jest/globals'
 import transcode, {
   fromBase64,
+  fromBase64URL,
   fromBinary,
   fromHex,
   fromJSON,
@@ -13,6 +14,7 @@ describe('binary transcoder', () => {
   describe.each([
     {
       base64: 'AA==',
+      base64url: 'AA',
       binary: '00000000',
       hex: '00',
       json: '{"type":"Buffer","data":[0]}',
@@ -23,6 +25,7 @@ describe('binary transcoder', () => {
     },
     {
       base64: 'S2V5',
+      base64url: 'S2V5',
       binary: '010010110110010101111001',
       hex: '4b6579',
       json: '{"type":"Buffer","data":[75,101,121]}',
@@ -32,7 +35,19 @@ describe('binary transcoder', () => {
       utf8: 'Key',
     },
     {
+      base64: 'Pj/+/w==',
+      base64url: 'Pj_-_w',
+      binary: '00111110001111111111111011111111',
+      hex: '3e3ffeff',
+      json: '{"type":"Buffer","data":[62,63,254,255]}',
+      latin1: '>?þÿ',
+      number: 1044381439,
+      octets: [0x3e, 0x3f, 0xfe, 0xff],
+      utf8: '>?��',
+    },
+    {
       base64: 'V2lraQ==',
+      base64url: 'V2lraQ',
       binary: '01010111011010010110101101101001',
       hex: '57696b69',
       json: '{"type":"Buffer","data":[87,105,107,105]}',
@@ -43,6 +58,7 @@ describe('binary transcoder', () => {
     },
     {
       base64: 'U2VjcmV0',
+      base64url: 'U2VjcmV0',
       binary: '010100110110010101100011011100100110010101110100',
       hex: '536563726574',
       json: '{"type":"Buffer","data":[83,101,99,114,101,116]}',
@@ -53,6 +69,7 @@ describe('binary transcoder', () => {
     },
     {
       base64: '////////',
+      base64url: '________',
       binary: '111111111111111111111111111111111111111111111111',
       hex: 'ffffffffffff',
       json: '{"type":"Buffer","data":[255,255,255,255,255,255]}',
@@ -65,6 +82,7 @@ describe('binary transcoder', () => {
     'text: "$latin1"',
     ({
       base64,
+      base64url,
       binary,
       hex,
       json,
@@ -90,6 +108,17 @@ describe('binary transcoder', () => {
           transcoder: transcode({
             encoding: 'base64',
             text: base64,
+          }),
+        },
+        {
+          name: 'base64URL alias',
+          transcoder: fromBase64URL(base64url),
+        },
+        {
+          name: 'base64URL explicit',
+          transcoder: transcode({
+            encoding: 'base64url',
+            text: base64url,
           }),
         },
         {
@@ -154,6 +183,7 @@ describe('binary transcoder', () => {
           transcoder: {
             toArray,
             toBase64,
+            toBase64URL,
             toBinary,
             toBuffer,
             toHex,
@@ -176,6 +206,12 @@ describe('binary transcoder', () => {
           describe('toBase64()', () => {
             it('should return a Base64 string', () => {
               expect(toBase64()).toBe(base64)
+            })
+          })
+
+          describe('toBase64URL()', () => {
+            it('should return a Base64 URL string', () => {
+              expect(toBase64URL()).toBe(base64url)
             })
           })
 

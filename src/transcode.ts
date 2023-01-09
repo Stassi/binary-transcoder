@@ -7,25 +7,27 @@ import {
   encode as encodeNumber,
 } from './transcodeNumber.js'
 
-type BufferEncoding = 'base64' | 'hex' | 'latin1' | 'utf8'
+type BufferEncoding = 'base64' | 'base64url' | 'hex' | 'latin1' | 'utf8'
 type BufferEncodingNonstandard = 'binary' | 'json'
-type EncodingAcronym = 'json' | 'utf8'
-
-type MethodCase<T extends string> = T extends EncodingAcronym
-  ? Uppercase<T>
-  : Capitalize<T>
-
-type EncoderMethod<T, K extends string> = Record<`to${MethodCase<K>}`, () => T>
 
 export type BinaryStringEncoding = BufferEncoding | BufferEncodingNonstandard
 
-export type BinaryTranscoder = EncoderMethod<Buffer, 'buffer'> &
-  EncoderMethod<number[], 'array'> &
-  EncoderMethod<number, 'number'> &
-  EncoderMethod<Uint8Array, 'uInt8Array'> &
-  EncoderMethod<string, BinaryStringEncoding>
+export type BinaryTranscoder = {
+  toArray(): number[]
+  toBase64(): string
+  toBase64URL(): string
+  toBinary(): string
+  toBuffer(): Buffer
+  toHex(): string
+  toJSON(): string
+  toLatin1(): string
+  toNumber(): number
+  toUInt8Array(): Uint8Array
+  toUTF8(): string
+}
 
 const BASE_64 = 'base64',
+  BASE_64_URL = 'base64url',
   BINARY = 'binary',
   HEX = 'hex',
   JSON_STRING = 'json',
@@ -69,6 +71,7 @@ export default function transcode(
     toNumber,
     toUInt8Array,
     toBase64: toString(BASE_64),
+    toBase64URL: toString(BASE_64_URL),
     toHex: toString(HEX),
     toLatin1: toString(LATIN_1),
     toUTF8: toString(UTF_8),
@@ -93,6 +96,9 @@ function fromString(encoding: BinaryStringEncoding) {
 
 export const fromBase64: (text: string) => BinaryTranscoder =
   fromString(BASE_64)
+
+export const fromBase64URL: (text: string) => BinaryTranscoder =
+  fromString(BASE_64_URL)
 
 export const fromBinary: (text: string) => BinaryTranscoder = fromString(BINARY)
 
