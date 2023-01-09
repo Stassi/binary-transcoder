@@ -107,37 +107,45 @@ import {
 ### Base64 encoding
 
 ```javascript
-transcode([0x4b, 0x65, 0x79]).toBase64()
-// 'S2V5'
+transcode([0x3e, 0x3f, 0xfe, 0xff]).toBase64()
+// 'Pj/+/w=='
 ```
 
 ### Base64 decoding
 
 ```javascript
-fromBase64('S2V5').toUInt8Array()
-// Uint8Array <4B, 65, 79>
+fromBase64('Pj/+/w==').toUInt8Array()
+// Uint8Array <3E, 3F, FE, FF>
+```
+
+```javascript
+transcode({
+  encoding: 'base64',
+  text: 'Pj/+/w==',
+}).toUInt8Array()
+// Uint8Array <3E, 3F, FE, FF>
 ```
 
 ### Base64URL encoding
 
 ```javascript
-transcode([0x4b, 0x65, 0x79]).toBase64URL()
-// 'S2V5'
+transcode([0x3e, 0x3f, 0xfe, 0xff]).toBase64URL()
+// 'Pj_-_w'
 ```
 
 ### Base64URL decoding
 
 ```javascript
-fromBase64URL('S2V5').toUInt8Array()
-// Uint8Array <4B, 65, 79>
+fromBase64URL('Pj_-_w').toUInt8Array()
+// Uint8Array <3E, 3F, FE, FF>
 ```
 
 ```javascript
 transcode({
   encoding: 'base64url',
-  text: 'S2V5',
+  text: 'Pj_-_w',
 }).toUInt8Array()
-// Uint8Array <4B, 65, 79>
+// Uint8Array <3E, 3F, FE, FF>
 ```
 
 ### Binary encoding
