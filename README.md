@@ -37,6 +37,7 @@ _Further information: [`Number` (MDN)](https://developer.mozilla.org/en-US/docs/
 _Further information: [Binary number (Wikipedia)](https://en.wikipedia.org/wiki/Binary_number) | [`JSON` (MDN)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON) | [`node:buffer` character encodings (Node.js)](https://nodejs.org/docs/latest-v19.x/api/buffer.html#buffers-and-character-encodings)_
 
 - `'base64'`
+- `'base64url'`
 - `'binary'` (binary number `string`, not the legacy Node.js alias of the same name for `'latin1'` encoding)
 - `'hex'`
 - `'json'`
@@ -64,6 +65,7 @@ npm i @stassi/binary-transcoder
 ```javascript
 import {
   fromBase64,
+  fromBase64URL,
   fromBinary,
   fromHex,
   fromJSON,
@@ -77,6 +79,7 @@ import {
 ```javascript
 const {
   fromBase64,
+  fromBase64URL,
   fromBinary,
   fromHex,
   fromJSON,
@@ -90,6 +93,7 @@ const {
 ```javascript
 import {
   fromBase64,
+  fromBase64URL,
   fromBinary,
   fromHex,
   fromJSON,
@@ -114,9 +118,23 @@ fromBase64('S2V5').toUInt8Array()
 // Uint8Array <4B, 65, 79>
 ```
 
+### Base64URL encoding
+
+```javascript
+transcode([0x4b, 0x65, 0x79]).toBase64URL()
+// 'S2V5'
+```
+
+### Base64URL decoding
+
+```javascript
+fromBase64URL('S2V5').toUInt8Array()
+// Uint8Array <4B, 65, 79>
+```
+
 ```javascript
 transcode({
-  encoding: 'base64',
+  encoding: 'base64url',
   text: 'S2V5',
 }).toUInt8Array()
 // Uint8Array <4B, 65, 79>
@@ -357,12 +375,13 @@ type Transcode = (
     | number[]
     | Uint8Array
     | {
-        encoding: 'base64' | 'binary' | 'hex' | 'json' | 'latin1'
+        encoding: 'base64' | 'base64url' | 'binary' | 'hex' | 'json' | 'latin1'
         text: string
       }
 ) => {
   toArray(): number[]
   toBase64(): string
+  toBase64URL(): string
   toBinary(): string
   toBuffer(): Buffer
   toHex(): string
@@ -374,12 +393,13 @@ type Transcode = (
 }
 ```
 
-### `fromBase64`, `fromBinary`, `fromHex`, `fromJSON`, `fromLatin1`
+### `fromBase64`, `fromBase64URL`, `fromBinary`, `fromHex`, `fromJSON`, `fromLatin1`
 
 ```typescript
 type FromString = (text: string) => {
   toArray(): number[]
   toBase64(): string
+  toBase64URL(): string
   toBinary(): string
   toBuffer(): Buffer
   toHex(): string
