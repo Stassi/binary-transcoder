@@ -34,7 +34,7 @@ _Further information: [`Number` (MDN)](https://developer.mozilla.org/en-US/docs/
 
 ### `string`
 
-_Further information: [Binary number (Wikipedia)](https://en.wikipedia.org/wiki/Binary_number) | [`JSON` (MDN)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON) | [`node:buffer` character encodings (Node.js)](https://nodejs.org/docs/latest-v19.x/api/buffer.html#buffers-and-character-encodings)_
+_Further information: [Binary number (Wikipedia)](https://en.wikipedia.org/wiki/Binary_number) | [`JSON` (MDN)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON) | [`node:buffer` character encodings (Node.js)](https://nodejs.org/docs/latest-v19.x/api/buffer.html#buffers-and-character-encodings) | [Unicode (Wikipedia)](https://en.wikipedia.org/wiki/Unicode)_
 
 - `'base64'`
 - `'base64url'`
@@ -43,6 +43,7 @@ _Further information: [Binary number (Wikipedia)](https://en.wikipedia.org/wiki/
 - `'json'`
 - `'latin1'`
 - `'utf8'` (encode output only)
+- `'utf16le'` (encode output only)
 
 ## Demo
 
@@ -369,6 +370,13 @@ transcode([0x4b, 0x65, 0x79]).toUTF8()
 // 'Key'
 ```
 
+### UTF-16 LE encoding
+
+```javascript
+transcode([0x4b, 0x65, 0x79]).toUTF16LE()
+// '敋'
+```
+
 ## Interface & types
 
 Function signatures provided here for reference. Built-in types are automatically usable in JavaScript. TypeScript is optional and not required.
@@ -398,6 +406,7 @@ type Transcode = (
   toNumber(): number
   toUInt8Array(): Uint8Array
   toUTF8(): string
+  toUTF16LE(): string
 }
 ```
 
@@ -416,5 +425,6 @@ type FromString = (text: string) => {
   toNumber(): number
   toUInt8Array(): Uint8Array
   toUTF8(): string
+  toUTF16LE(): string
 }
 ```

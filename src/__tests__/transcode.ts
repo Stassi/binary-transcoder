@@ -22,6 +22,7 @@ describe('binary transcoder', () => {
       number: 0,
       octets: [0x00],
       utf8: '\u0000',
+      utf16le: '',
     },
     {
       base64: 'S2V5',
@@ -33,6 +34,7 @@ describe('binary transcoder', () => {
       number: 4941177,
       octets: [0x4b, 0x65, 0x79],
       utf8: 'Key',
+      utf16le: '敋',
     },
     {
       base64: 'Pj/+/w==',
@@ -44,6 +46,7 @@ describe('binary transcoder', () => {
       number: 1044381439,
       octets: [0x3e, 0x3f, 0xfe, 0xff],
       utf8: '>?��',
+      utf16le: '㼾￾',
     },
     {
       base64: 'V2lraQ==',
@@ -55,6 +58,7 @@ describe('binary transcoder', () => {
       number: 1466526569,
       octets: [0x57, 0x69, 0x6b, 0x69],
       utf8: 'Wiki',
+      utf16le: '楗楫',
     },
     {
       base64: 'U2VjcmV0',
@@ -66,6 +70,7 @@ describe('binary transcoder', () => {
       number: 91694925243764,
       octets: [0x53, 0x65, 0x63, 0x72, 0x65, 0x74],
       utf8: 'Secret',
+      utf16le: '敓牣瑥',
     },
     {
       base64: '////////',
@@ -77,6 +82,7 @@ describe('binary transcoder', () => {
       number: 281474976710655,
       octets: [0xff, 0xff, 0xff, 0xff, 0xff, 0xff],
       utf8: '������',
+      utf16le: '￿￿￿',
     },
   ])(
     'text: "$latin1"',
@@ -90,6 +96,7 @@ describe('binary transcoder', () => {
       number,
       octets,
       utf8,
+      utf16le,
     }: {
       number: number
       octets: number[]
@@ -192,6 +199,7 @@ describe('binary transcoder', () => {
             toNumber,
             toUInt8Array,
             toUTF8,
+            toUTF16LE,
           },
         }: {
           name: string
@@ -260,6 +268,12 @@ describe('binary transcoder', () => {
           describe('toUTF8()', () => {
             it('should return a UTF-8 string', () => {
               expect(toUTF8()).toBe(utf8)
+            })
+          })
+
+          describe('toUTF16LE()', () => {
+            it('should return a UTF-16 LE string', () => {
+              expect(toUTF16LE()).toBe(utf16le)
             })
           })
         }

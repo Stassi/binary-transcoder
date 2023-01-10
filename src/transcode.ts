@@ -7,10 +7,15 @@ import {
   encode as encodeNumber,
 } from './transcodeNumber.js'
 
-type BufferEncoding = 'base64' | 'base64url' | 'hex' | 'latin1' | 'utf8'
-type BufferEncodingNonstandard = 'binary' | 'json'
+type BufferEncoding =
+  | 'base64'
+  | 'base64url'
+  | 'hex'
+  | 'latin1'
+  | 'utf8'
+  | 'utf16le'
 
-export type BinaryStringEncoding = BufferEncoding | BufferEncodingNonstandard
+export type BinaryStringEncoding = BufferEncoding | 'binary' | 'json'
 
 export type BinaryTranscoder = {
   toArray(): number[]
@@ -24,6 +29,7 @@ export type BinaryTranscoder = {
   toNumber(): number
   toUInt8Array(): Uint8Array
   toUTF8(): string
+  toUTF16LE(): string
 }
 
 const BASE_64 = 'base64',
@@ -33,6 +39,7 @@ const BASE_64 = 'base64',
   JSON_STRING = 'json',
   LATIN_1 = 'latin1',
   UTF_8 = 'utf8',
+  UTF_16_LE = 'utf16le',
   strictEqualsBinary: (x: string) => boolean = strictEquals(BINARY),
   strictEqualsJSON: (x: string) => boolean = strictEquals(JSON_STRING)
 
@@ -75,6 +82,7 @@ export default function transcode(
     toHex: toString(HEX),
     toLatin1: toString(LATIN_1),
     toUTF8: toString(UTF_8),
+    toUTF16LE: toString(UTF_16_LE),
     toArray(): number[] {
       return [...toUInt8Array()]
     },
