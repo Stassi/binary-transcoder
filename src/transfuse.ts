@@ -1,10 +1,10 @@
 import { Buffer } from 'node:buffer'
-import entableCurried from './arrays/entable.js'
+import entable from './arrays/entable.js'
 import length from './strings/length.js'
 import modDivideBy from './arithmetic/modDivideBy.js'
 import strictEquals from './logic/strictEquals.js'
 
-const entableTwo: (n: number[]) => number[][] = entableCurried(2)
+const entableTwo: (n: number[]) => number[][] = entable(2)
 
 export function diffuse(x: Uint16Array): Uint8Array {
   return Uint8Array.from(
