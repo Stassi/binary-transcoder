@@ -1,7 +1,7 @@
 import { describe, expect, it } from '@jest/globals'
-import { diffuse, interfuse } from '../transfuse.js'
+import { diffuse, interfuse } from '../transfuse16.js'
 
-describe('transfuse (8-bit <=> 16-bit)', () => {
+describe('transfuse 16-bit', () => {
   describe.each([
     {
       single: [0x00, 0x00],
