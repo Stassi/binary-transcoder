@@ -67,6 +67,8 @@ function entableUnary<T>({ data, width }: { data: T[]; width: number }): T[][] {
   return getRound().state.generated
 }
 
-export default function entable<T>(width: number): (data: T[]) => T[][] {
+export default function entable<T extends number>(
+  width: number
+): (data: T[]) => T[][] {
   return (data: T[]): T[][] => entableUnary({ data, width })
 }
