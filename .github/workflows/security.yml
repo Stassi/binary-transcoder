@@ -40,7 +40,7 @@ jobs:
           category: '/language:${{matrix.language}}'
 
   test:
-    name: Snyk test
+    name: Snyk analyze
     runs-on: ubuntu-latest
     steps:
       - name: Checkout git repository
