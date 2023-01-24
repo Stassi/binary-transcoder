@@ -1,5 +1,8 @@
 import { describe, expect, it } from '@jest/globals'
-import { diffuse, interfuse } from '../transfuse16.js'
+import {
+  diffuse as diffuse16,
+  interfuse as interfuse16,
+} from '../transfuse16.js'
 
 describe('transfuse 16-bit', () => {
   describe.each([
@@ -39,13 +42,13 @@ describe('transfuse 16-bit', () => {
 
       describe('diffuse', () => {
         it('should convert 16-bit to 8-bit values', () => {
-          expect([...diffuse(sixteenBits)]).toStrictEqual([...eightBits])
+          expect([...diffuse16(sixteenBits)]).toStrictEqual([...eightBits])
         })
       })
 
       describe('interfuse', () => {
         it('should convert 8-bit to 16-bit values', () => {
-          expect([...interfuse(eightBits)]).toStrictEqual([...sixteenBits])
+          expect([...interfuse16(eightBits)]).toStrictEqual([...sixteenBits])
         })
       })
     }
