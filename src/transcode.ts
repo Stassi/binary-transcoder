@@ -1,4 +1,5 @@
-import { Buffer } from 'node:buffer'
+import type { Buffer } from 'node:buffer'
+import createBuffer from './buffer/create.js'
 import strictEquals from './logic/strictEquals.js'
 import toBinaryOctet from './octet/toBinary.js'
 import toDecimalOctet from './octet/toDecimal.js'
@@ -62,17 +63,17 @@ export default function transcode(
         : paramIsBinary
         ? encodeNumber(toDecimalOctet(param.text))
         : paramIsJSON
-        ? Buffer.from(JSON.parse(param.text))
+        ? createBuffer(JSON.parse(param.text))
         : paramIsArray
         ? Uint8Array.from(param)
         : paramIsString
         ? Uint8Array.from(
-            Buffer.from(param.text, <BufferEncoding>param.encoding)
+            createBuffer(param.text, <BufferEncoding>param.encoding)
           )
         : param,
     toNumber = (): number => decodeNumber(toUInt8Array()),
     toString = (targetEncoding: BufferEncoding) => (): string =>
-      Buffer.from(toUInt8Array()).toString(targetEncoding)
+      createBuffer(toUInt8Array()).toString(targetEncoding)
 
   return {
     toNumber,
@@ -90,10 +91,10 @@ export default function transcode(
       return toBinaryOctet(toNumber())
     },
     toBuffer(): Buffer {
-      return Buffer.from(toUInt8Array())
+      return createBuffer(toUInt8Array())
     },
     toJSON(): string {
-      return JSON.stringify(Buffer.from(toUInt8Array()))
+      return JSON.stringify(createBuffer(toUInt8Array()))
     },
   }
 }

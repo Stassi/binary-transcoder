@@ -1,6 +1,6 @@
 import type { BinaryStringEncoding, BinaryTranscoder } from '../transcode.js'
-import { Buffer } from 'node:buffer'
 import { describe, expect, it } from '@jest/globals'
+import createBuffer from '../buffer/create.js'
 import transcode, {
   fromBase64,
   fromBase64URL,
@@ -141,7 +141,7 @@ describe('binary transcoder', () => {
         },
         {
           name: 'buffer',
-          transcoder: transcode(Buffer.from(octets)),
+          transcoder: transcode(createBuffer(octets)),
         },
         {
           name: 'hex alias',

@@ -1,11 +1,11 @@
-import { Buffer } from 'node:buffer'
+import createBuffer from './buffer/create.js'
 import length from './strings/length.js'
 import subdivideOctets from './octet/subdivide.js'
 import toBinary from './octet/toBinary.js'
 import toDecimal from './octet/toDecimal.js'
 
 export function decode(encoded: Uint8Array): number {
-  return Buffer.from(encoded).readUIntBE(0, length(encoded))
+  return createBuffer(encoded).readUIntBE(0, length(encoded))
 }
 
 export function encode(n: number): Uint8Array {
