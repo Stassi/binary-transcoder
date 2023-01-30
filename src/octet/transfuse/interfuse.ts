@@ -25,5 +25,3 @@ export function interfuse64(x: Uint8Array): BigUint64Array {
     )
   )
 }
-
-export * from './diffuse.js'

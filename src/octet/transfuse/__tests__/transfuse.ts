@@ -1,12 +1,6 @@
 import { describe, expect, it } from '@jest/globals'
-import {
-  diffuse16,
-  diffuse32,
-  diffuse64,
-  interfuse16,
-  interfuse32,
-  interfuse64,
-} from '../transfuse.js'
+import { diffuse16, diffuse32, diffuse64 } from '../diffuse.js'
+import { interfuse16, interfuse32, interfuse64 } from '../interfuse.js'
 
 describe('transfuse', () => {
   describe('fixed-width lossless', () => {
