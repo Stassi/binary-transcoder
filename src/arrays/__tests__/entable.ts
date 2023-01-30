@@ -51,14 +51,14 @@ describe('entable', () => {
       width: number
     }) => {
       it('should return a table with rows of the given width', () => {
-        expect(entable(width)(data)).toStrictEqual(expected)
+        expect(entable({ data, width })).toStrictEqual(expected)
       })
     }
   )
 
   describe('width: 2, data: [0, 1, 2]', () => {
     it('should throw a RangeError', () => {
-      expect(() => entable(2)([0, 1, 2])).toThrow(
+      expect(() => entable({ data: [0, 1, 2], width: 2 })).toThrow(
         'Input length must be evenly divisible by width: 2'
       )
     })
@@ -66,7 +66,7 @@ describe('entable', () => {
 
   describe('width: 10, data: []', () => {
     it('should return an empty array', () => {
-      expect(entable(10)([])).toStrictEqual([])
+      expect(entable({ data: [], width: 10 })).toStrictEqual([])
     })
   })
 })

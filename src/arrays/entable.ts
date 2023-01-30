@@ -48,7 +48,13 @@ function round<T>(
   }
 }
 
-function entableUnary<T>({ data, width }: { data: T[]; width: number }): T[][] {
+export default function entable<T>({
+  data,
+  width,
+}: {
+  data: T[]
+  width: number
+}): T[][] {
   const dataLength: number = length(data),
     modDivideByWidth: (dividend: number) => number = modDivideBy(width)
 
@@ -65,10 +71,4 @@ function entableUnary<T>({ data, width }: { data: T[]; width: number }): T[][] {
   }
 
   return getRound().state.generated
-}
-
-export default function entable<T extends number>(
-  width: number
-): (data: T[]) => T[][] {
-  return (data: T[]): T[][] => entableUnary({ data, width })
 }

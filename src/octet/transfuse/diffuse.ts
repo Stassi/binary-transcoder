@@ -7,7 +7,9 @@ type Diffuse<T> = (x: T) => Uint8Array
 function diffuse(width: number): (x: IncludesArrayBuffer) => Uint8Array {
   return ({ buffer: arrayBuffer }: IncludesArrayBuffer): Uint8Array => {
     return Uint8Array.from(
-      entable(width)(toNumbers(arrayBuffer).reverse()).reverse().flat()
+      entable({ width, data: toNumbers(arrayBuffer).reverse() })
+        .reverse()
+        .flat()
     )
   }
 }
